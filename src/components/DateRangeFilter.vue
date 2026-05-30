@@ -32,12 +32,23 @@ const handleClear = () => {
     <div class="input-group">
       <div class="date-field">
         <label>From</label>
-        <input type="date" v-model="localStart" class="date-input" />
+        <input
+          type="date"
+          v-model="localStart"
+          :max="new Date().toISOString().split('T')[0]"
+          class="date-input"
+        />
       </div>
 
       <div class="date-field">
         <label>To</label>
-        <input type="date" v-model="localEnd" :min="localStart" class="date-input" />
+        <input
+          type="date"
+          v-model="localEnd"
+          :min="localStart"
+          :max="new Date().toISOString().split('T')[0]"
+          class="date-input"
+        />
       </div>
     </div>
 
@@ -49,7 +60,7 @@ const handleClear = () => {
 
 <style scoped>
 .calendar-filter-container {
-  display: flex;
+  display: block;
   align-items: flex-end;
   gap: 1rem;
   background: white;
@@ -101,6 +112,7 @@ const handleClear = () => {
 .btn-clear {
   background: #f1f5f9;
   border: none;
+  margin-top: 0.5rem;
   color: #475569;
   padding: 0.6rem 0.9rem;
   border-radius: 6px;

@@ -17,9 +17,6 @@ const formattedBalance = computed(() => {
   <div class="card card-hero">
     <span class="card-label">CURRENT BALANCE</span>
     <h2 class="balance-amount"><span>&#8358;</span>{{ formattedBalance }}</h2>
-    <span class="trend-badge positive">
-      <i class="pi pi-arrow-up-right icon"></i> +4.2% from last month
-    </span>
     <div class="deco-circle"></div>
   </div>
 </template>
@@ -51,19 +48,6 @@ const formattedBalance = computed(() => {
   position: relative;
   z-index: 1;
 }
-.trend-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.2rem;
-  font-size: 0.7rem;
-  font-weight: 600;
-  padding: 0.3rem 0.6rem;
-  border-radius: 20px;
-  background-color: #d1fae5;
-  color: #065f46;
-  position: relative;
-  z-index: 1;
-}
 .deco-circle {
   position: absolute;
   width: 140px;
@@ -73,9 +57,5 @@ const formattedBalance = computed(() => {
   right: -30px;
   bottom: -30px;
   z-index: 0;
-}
-.trend-badge .icon {
-  font-size: 0.75rem;
-  margin-right: 2px;
 }
 </style>

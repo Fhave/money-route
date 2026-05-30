@@ -21,6 +21,16 @@ defineEmits(['update:modelValue'])
       <option value="Income">Income</option>
       <option value="Bills">Bills</option>
       <option value="Food & Drinks">Food & Drinks</option>
+      <option value="Rent">Rent</option>
+      <option value="Utilities">Utilities</option>
+      <option value="Groceries">Groceries</option>
+      <option value="Transportation">Transportation</option>
+      <option value="Entertainment">Entertainment</option>
+      <option value="Salary">Salary</option>
+      <option value="Bonuses">Bonuses</option>
+      <option value="Investments">Investments</option>
+      <option value="Taxes">Taxes</option>
+      <option value="Debt">Debt</option>
     </select>
   </div>
 </template>

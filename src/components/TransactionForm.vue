@@ -159,10 +159,21 @@ const handleSubmit = () => {
 
           <label>Category</label>
           <select class="dropdown" v-model="form.category">
+            <option value="All">All Categories</option>
             <option value="Shopping">Shopping</option>
             <option value="Income">Income</option>
             <option value="Bills">Bills</option>
             <option value="Food & Drinks">Food & Drinks</option>
+            <option value="Rent">Rent</option>
+            <option value="Utilities">Utilities</option>
+            <option value="Groceries">Groceries</option>
+            <option value="Transportation">Transportation</option>
+            <option value="Entertainment">Entertainment</option>
+            <option value="Salary">Salary</option>
+            <option value="Bonuses">Bonuses</option>
+            <option value="Investments">Investments</option>
+            <option value="Taxes">Taxes</option>
+            <option value="Debt">Debt</option>
           </select>
         </template>
 
@@ -193,7 +204,12 @@ const handleSubmit = () => {
         </template>
 
         <label>Date</label>
-        <input type="date" v-model="form.date" required />
+        <input
+          type="date"
+          v-model="form.date"
+          :max="new Date().toISOString().split('T')[0]"
+          required
+        />
 
         <label>Note</label>
         <input type="text" v-model="form.note" placeholder="E.g., Groceries..." />

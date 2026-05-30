@@ -75,7 +75,7 @@ const handleConfirmDelete = () => {
       </div>
 
       <div class="accounts-inventory">
-        <h3>Active Accounts Grid</h3>
+        <h3>Active Accounts</h3>
 
         <div class="inventory-grid">
           <AccountTile

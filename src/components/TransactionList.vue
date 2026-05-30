@@ -116,16 +116,6 @@ const closeForm = () => {
           <i :class="['pi', activeTab === 'expense' ? 'pi-arrow-down' : 'pi-arrow-up']"></i>
           <span>&#8358;</span>{{ currentDisplayAmount.toFixed(2) }}
         </h2>
-
-        <div class="progress-bar">
-          <div
-            class="fill"
-            :style="{
-              width: '65%',
-              backgroundColor: activeTab === 'expense' ? '#dc2626' : '#16a34a',
-            }"
-          ></div>
-        </div>
       </div>
 
       <div class="card">
