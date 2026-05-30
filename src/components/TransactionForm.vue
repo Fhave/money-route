@@ -56,6 +56,27 @@ const handleSubmit = () => {
   errorMessage.value = ''
   const inputAmount = Number(form.amount)
 
+  if (!form.amount || isNaN(inputAmount) || inputAmount <= 0) {
+    errorMessage.value = 'Please enter a valid amount greater than 0.'
+    return
+  }
+
+  if (form.type === 'transfer') {
+    if (!form.fromAccountId || !form.toAccountId) {
+      errorMessage.value = 'Please select both source and destination accounts for transfer.'
+      return
+    }
+    if (form.fromAccountId === form.toAccountId) {
+      errorMessage.value = 'Source and destination accounts must be different.'
+      return
+    }
+  } else {
+    if (!form.accountId) {
+      errorMessage.value = 'Please select an account.'
+      return
+    }
+  }
+
   const structuralAdjustment = (targetId, currentType) => {
     if (!isEditing.value || props.editData.type !== currentType) return 0
 
@@ -117,7 +138,7 @@ const handleSubmit = () => {
     <div class="modal-content">
       <h3>{{ isEditing ? 'Edit Transaction' : 'Add Transaction' }}</h3>
 
-      <form @submit.prevent="handleSubmit">
+      <form @submit.prevent="handleSubmit" noValidate>
         <label>Type</label>
         <select class="dropdown" v-model="form.type">
           <option value="expense">Expense</option>

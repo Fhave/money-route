@@ -1,5 +1,5 @@
 <script setup>
-import { reactive, computed, watch } from 'vue'
+import { ref, reactive, computed, watch } from 'vue'
 
 const props = defineProps({
   editData: {
@@ -16,6 +16,7 @@ const form = reactive({
   initialBalance: '',
 })
 
+const errorMessage = ref('')
 const isEditing = computed(() => props.editData !== null)
 const resetForm = () => {
   form.name = ''
@@ -38,8 +39,22 @@ watch(
 )
 
 const handleSubmit = () => {
+  errorMessage.value = ''
+  if (!form.name || !form.name.trim()) {
+    errorMessage.value = 'Account name is required.'
+  }
+  const balance = parseFloat(String(form.initialBalance || 0))
+  if (Number.isNaN(balance)) {
+    errorMessage.value = 'Starting balance must be a valid number.'
+  }
+
+  if (errorMessage.value) {
+    return
+  }
+
   emit('submit', { ...form })
   resetForm()
+  errorMessage.value = ''
 }
 </script>
 
@@ -50,7 +65,7 @@ const handleSubmit = () => {
       <span v-if="isEditing" class="edit-pill">Edit Mode</span>
     </div>
 
-    <form @submit.prevent="handleSubmit" class="account-form">
+    <form @submit.prevent="handleSubmit" class="account-form" noValidate>
       <div class="form-group">
         <label for="acc-name">Account Name</label>
         <input
@@ -84,6 +99,11 @@ const handleSubmit = () => {
             placeholder="0.00"
           />
         </div>
+      </div>
+
+      <div v-if="errorMessage" class="error-banner">
+        <i class="pi pi-times-circle"></i>
+        <span>{{ errorMessage }}</span>
       </div>
 
       <div class="action-buttons-wrapper">
@@ -209,5 +229,18 @@ const handleSubmit = () => {
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
+}
+.error-banner {
+  background-color: #fef2f2;
+  border: 1px solid #fee2e2;
+  color: #dc2626;
+  padding: 0.65rem;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
 }
 </style>
