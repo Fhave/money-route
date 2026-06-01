@@ -1,8 +1,17 @@
 # Money-Route: Financial Ledger
 
-Money-Route is a personal finance tracker built to help you understand and manage your money in a simple, private, and fast way.
+Money-Route is a frontend-only personal finance tracker designed to help users manage their money across multiple accounts in one place.
 
-It allows you to track income and expenses, manage multiple accounts (like bank accounts, savings, and cash), and view your overall financial position—all stored locally on your device.
+The application allows users to:
+
+- Manage multiple financial accounts
+- Record income and expenses
+- Transfer money between accounts
+- Monitor overall net worth
+- Analyze monthly income and spending trends
+- Filter transaction history by date range
+
+Unlike many modern finance applications, Money-Route does not require users to connect bank accounts or store financial data on external servers. All information is stored locally in the browser, giving users complete ownership and control of their financial data.
 
 ---
 
@@ -10,19 +19,41 @@ It allows you to track income and expenses, manage multiple accounts (like bank 
 
 ### The Problem
 
-Most financial tracking apps require users to connect their bank accounts or store financial data on external servers. This introduces privacy concerns and reduces control over personal data.
+Many people manage their finances across multiple places, such as bank accounts, savings accounts, and physical cash.
+
+While banking applications provide visibility into individual accounts, they rarely offer a consolidated view of a person's overall financial position. As a result, users often need to switch between multiple apps or manually calculate balances to understand how much money they actually have.
+
+Tracking spending presents an additional challenge. Without a dedicated system, it becomes difficult to answer questions such as:
+
+- How much did I spend this month?
+- Which account is most of my money in?
+- How much income have I received recently?
+- Can I afford this expense without overdrawing an account?
 
 ### Why It Matters
 
-Financial data is highly sensitive. Users should be able to track their money without handing control of their information to third-party platforms.
+Good financial decisions depend on having accurate and accessible information.
+
+Without a clear view of balances, expenses, and income, it becomes easy to overspend, lose track of transactions, or misjudge available funds.
+
+I wanted a simple tool that would provide a complete picture of my finances while remaining fast, private, and easy to use.
 
 ### Before Money-Route
 
-- Spreadsheets that were difficult to update on mobile
-- Banking apps that only show individual accounts
-- No unified view of total financial position
+Before building Money-Route, I relied on a combination of:
 
-Money-Route was built to solve this gap by keeping everything local and unified.
+- Banking applications
+- Manual calculations
+- Basic spreadsheets
+
+This approach had several limitations:
+
+- Financial information was scattered across multiple places
+- There was no unified view of all account balances
+- Tracking monthly spending required manual effort
+- Spreadsheets were inconvenient to update regularly
+
+Money-Route was built to solve these challenges by providing a single place to manage accounts, track transactions, monitor spending, and view overall net worth while keeping all data stored locally on the device.
 
 ---
 
@@ -32,18 +63,45 @@ This project was built using **Vue.js**.
 
 ### Why Vue.js
 
-Vue was chosen because:
+Money-Route is a highly state-driven application where a single user action can affect multiple parts of the interface simultaneously.
 
-- It provides a clean and structured way to build UI components
-- It is lightweight and fast for small-to-medium applications
-- It reduces boilerplate compared to other frameworks
+For example, when a user records an expense:
+
+- The account balance changes
+- The total net balance updates
+- Monthly expense statistics are recalculated
+- Recent transactions are refreshed
+- Dashboard summaries update automatically
+
+Vue's reactivity system made it straightforward to keep all these parts synchronized without requiring complex state management.
+
+Another reason Vue was chosen is the application's component-based structure. Money-Route is composed of reusable pieces such as:
+
+- Dashboard cards
+- Account cards
+- Transaction forms
+- Transaction lists
+- Monthly expense charts
+- Date filters
+
+Vue's Single File Components made it easy to keep the template, logic, and styling for each feature organized in one place.
 
 ### Trade-offs
 
-- React has a larger ecosystem and more job-market relevance
-- Vue, however, allows faster development and simpler state handling for this type of personal tool
+React was the primary alternative considered.
 
-For this project, speed of development and simplicity were prioritized over ecosystem size.
+React provides:
+
+- larger ecosystem
+- Greater industry adoption
+- More third-party libraries
+- Strong support for large-scale applications
+
+However, Money-Route is a frontend-only application that focuses primarily on financial calculations, account management, transaction tracking, and data visualization.
+
+For this scope, Vue allowed the application to be built more quickly while keeping the codebase relatively small and easy to maintain.
+
+If the project evolves into a larger platform with cloud synchronization, banking integrations, or a larger development team, React's ecosystem could become more advantageous. For the current scope, Vue provided the best balance between development speed, maintainability, and simplicity.
 
 ---
 
@@ -51,41 +109,40 @@ For this project, speed of development and simplicity were prioritized over ecos
 
 ### State Management
 
-Instead of using complex global state systems, the app uses lightweight composables.
+Instead of introducing a dedicated state management library, the application uses lightweight Vue composables.
 
-These composables act as small logic units responsible for specific concerns like:
+These composables are responsible for handling:
 
-- Transaction handling
-- Account calculations
-
-This keeps the codebase modular and easy to maintain.
+- Transaction management
+- Account management
+- Balance calculations
 
 ---
 
 ### Data Storage
 
-All data is stored in the browser using **Local Storage**.
+All financial data is stored in the browser using Local Storage.
 
 This ensures:
 
-- No external database is required
-- User data remains private
+- No backend is required
+- User data never leaves the device
 - Data persists between sessions
 
 ---
 
 ### Component Architecture
 
-The UI is broken into reusable components such as:
+The application is built using reusable components such as:
 
+- Dashboard summary cards
 - Account cards
-- Balance summary cards
 - Transaction items
-- Forms and input components
+- Transaction forms
+- Monthly expense charts
+- Date range filters
 
-Each component is isolated, making it easy to debug, update, and reuse across the application.
-
-Error handling is also implemented at the component level to prevent small failures from crashing the entire application.
+Each component is responsible for a single feature, making the application easier to maintain, test, and extend.
 
 ---
 
@@ -93,22 +150,42 @@ Error handling is also implemented at the component level to prevent small failu
 
 ### Dashboard
 
-- Displays total net balance
-- Shows income and expenses summary
-- Provides a quick financial overview
+The dashboard provides a complete financial overview by displaying:
+
+- Total net balance across all accounts
+- Monthly income
+- Monthly expenses
+- Monthly expense chart
+- Recent transactions
 
 ### Accounts
 
-- Create multiple accounts (bank, cash, savings, etc.)
-- Track balances per account
-- View overall net worth
+Users can manage multiple financial accounts such as:
+
+- Bank Accounts
+- Savings Accounts
+- Cash Wallets
+
+Features include:
+
+- Create new accounts
+- Edit existing accounts
+- View individual account balances
+- Transfer money between accounts
+
+A default account is automatically created when the application is first used.
 
 ### Transactions
 
-- Add income or expense entries
+Users can:
+
+- Record income
+- Record expenses
 - Transfer money between accounts
-- Automatic balance updates
-- Validation to prevent invalid transactions
+- View transactions sorted by date
+- Filter transactions using custom date ranges
+
+All account balances and dashboard analytics update automatically whenever transactions are added.
 
 ---
 
@@ -116,19 +193,26 @@ Error handling is also implemented at the component level to prevent small failu
 
 ### The Challenge
 
-The most difficult part of the project was handling transaction edits and maintaining accurate account balances.
+One of the most challenging parts of the project was implementing overdraft prevention.
 
-When editing past transactions, the system would incorrectly calculate balances because it was still considering the previous transaction values.
+Money-Route allows users to record expenses and transfer money between accounts. A key requirement was ensuring that users could not spend or transfer more money than was available in an account.
+
+While this sounds simple, the challenge became more complex when multiple accounts and account transfers were introduced.
+
+In both situations, the transaction should be rejected because it would result in a negative balance.
 
 ### The Solution
 
-A recalculation system was introduced:
+To solve this, I implemented a validation layer that runs before any expense or transfer is saved.
 
-- When a transaction is edited, the original value is temporarily removed
-- The updated transaction is then applied
-- All balances are recalculated from a clean state
+The system:
 
-This ensured consistency and prevented overdraft calculation errors.
+- Calculates the current account balance.
+- Simulates the transaction.
+- Determines the resulting balance.
+- Blocks the operation if the balance would fall below zero.
+
+This validation is applied consistently across expenses and transfers, ensuring that account balances remain accurate and preventing users from accidentally overspending.
 
 ---
 
