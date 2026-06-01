@@ -70,7 +70,6 @@ This ensures:
 
 - No external database is required
 - User data remains private
-- The app works offline
 - Data persists between sessions
 
 ---
@@ -138,7 +137,12 @@ This ensured consistency and prevented overdraft calculation errors.
 ### Setup Instructions
 
 ```bash
-git clone <repo-url>
+git clone <https://github.com/Fhave/money-route.git>
 cd money-route
 npm install
 npm run dev
+```
+
+### Demo Link
+
+<https://stirring-piroshki-a98863.netlify.app/>

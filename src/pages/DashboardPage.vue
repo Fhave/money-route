@@ -56,9 +56,9 @@ const currentBalance = computed(() => totalNetWealth.value)
         <p>Welcome back, here's what's happening with your wealth this month.</p>
       </div>
       <div class="header-actions">
-        <button class="btn-seed" @click="handleBulkSeed">
+        <!-- <button class="btn-seed" @click="handleBulkSeed">
           <i class="pi pi-database"></i> Seed Data
-        </button>
+        </button> -->
 
         <button class="btn-add-header" @click="isFormOpen = true">
           <i class="pi pi-plus"></i> Add Transaction
