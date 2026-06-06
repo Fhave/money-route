@@ -1,4 +1,6 @@
 <script setup>
+import { formatCurrency } from '@/utils/currency'
+
 defineProps({
   amount: {
     type: Number,
@@ -12,8 +14,7 @@ defineProps({
   <div class="net-wealth-card">
     <span class="card-label">TOTAL NET WEALTH</span>
     <h2 class="wealth-amount">
-      <span>&#8358;</span
-      >{{ amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) }}
+      {{ formatCurrency(amount) }}
     </h2>
   </div>
 </template>
@@ -25,6 +26,7 @@ defineProps({
   padding: 1.5rem;
   border-radius: 16px;
   box-shadow: 0 4px 6px -1px rgba(3, 49, 38, 0.15);
+  font-family: sans-serif;
 }
 .card-label {
   font-size: 0.7rem;
@@ -36,5 +38,6 @@ defineProps({
   font-size: 2rem;
   font-weight: 800;
   margin: 0.4rem 0 0 0;
+  letter-spacing: -0.02em;
 }
 </style>

@@ -1,4 +1,6 @@
 <script setup>
+import { formatCurrency } from '@/utils/currency'
+
 defineProps({
   account: {
     type: Object,
@@ -37,20 +39,13 @@ defineEmits(['edit', 'delete'])
     <div class="tile-body">
       <h4>{{ account.name }}</h4>
       <p class="tile-balance" :class="{ 'negative-bal': account.balance < 0 }">
-        <span>&#8358;</span
-        >{{
-          account.balance.toLocaleString('en-US', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2,
-          })
-        }}
+        {{ formatCurrency(account.balance) }}
       </p>
     </div>
 
     <div class="tile-footer">
       <span class="initial-bal-tag">
-        Initial Base: <span>&#8358;</span
-        >{{ account.initialBalance.toLocaleString('en-US', { minimumFractionDigits: 2 }) }}
+        Initial Base: {{ formatCurrency(account.initialBalance) }}
       </span>
     </div>
   </div>

@@ -1,5 +1,6 @@
 <script setup>
 import { ref, reactive, computed, watch } from 'vue'
+import { useSettingsStore } from '@/stores/settings'
 
 const props = defineProps({
   editData: {
@@ -10,6 +11,8 @@ const props = defineProps({
 
 const emit = defineEmits(['submit', 'cancel'])
 
+const settingsStore = useSettingsStore()
+
 const form = reactive({
   name: '',
   type: 'Bank',
@@ -18,6 +21,12 @@ const form = reactive({
 
 const errorMessage = ref('')
 const isEditing = computed(() => props.editData !== null)
+
+const activeCurrencySymbol = computed(() => {
+  const currentCode = settingsStore.settings?.currency || 'NGN'
+  return settingsStore.currencyValues(currentCode) || '₦'
+})
+
 const resetForm = () => {
   form.name = ''
   form.type = 'Bank'
@@ -90,7 +99,7 @@ const handleSubmit = () => {
       <div class="form-group">
         <label for="acc-balance">Starting Balance</label>
         <div class="input-currency-wrapper">
-          <span class="currency-prefix">&#8358;</span>
+          <span class="currency-prefix">{{ activeCurrencySymbol }}</span>
           <input
             id="acc-balance"
             type="number"
