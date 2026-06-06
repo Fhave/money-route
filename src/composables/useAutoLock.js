@@ -1,22 +1,22 @@
 import { onMounted, onUnmounted } from 'vue'
-import { useSettings } from './useSettings'
+import { useSettingsStore } from '@/stores/settings'
 
 export function useAutoLock(onLock) {
-  const { settings } = useSettings()
+  const store = useSettingsStore()
 
   let timer = null
 
   const resetTimer = () => {
-    if (!settings.value.passcodeEnabled) return
+    if (!store.settings.passcodeEnabled) return
     startTimer()
   }
 
   const startTimer = () => {
-    if (!settings.value.passcodeEnabled) return
+    if (!store.settings.passcodeEnabled) return
 
     if (timer) clearTimeout(timer)
 
-    const minutes = settings.value.autoLockTime || 5
+    const minutes = store.settings.autoLockTime || 5
     const ms = minutes * 60 * 1000
 
     timer = setTimeout(() => {
@@ -27,7 +27,7 @@ export function useAutoLock(onLock) {
   const events = ['mousemove', 'keydown', 'click', 'scroll', 'touchstart']
 
   onMounted(() => {
-    if (!settings.value.passcodeEnabled) return
+    if (!store.settings.passcodeEnabled) return
 
     events.forEach((event) => window.addEventListener(event, resetTimer))
 

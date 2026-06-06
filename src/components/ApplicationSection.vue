@@ -1,7 +1,7 @@
 <script setup>
-import { useSettings } from '@/composables/useSettings'
+import { useSettingsStore } from '@/stores/settings'
 
-const { settings, saveSettings } = useSettings()
+const store = useSettingsStore()
 </script>
 
 <template>
@@ -14,7 +14,7 @@ const { settings, saveSettings } = useSettings()
         <p>Select your preferred currency</p>
       </div>
 
-      <select v-model="settings.currency" @change="saveSettings">
+      <select v-model="store.settings.currency" @change="store.saveSettings">
         <option value="NGN">₦ NGN</option>
         <option value="USD">$ USD</option>
         <option value="GBP">£ GBP</option>
