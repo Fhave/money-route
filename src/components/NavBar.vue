@@ -29,6 +29,9 @@ const isMobileMenuOpen = ref(false)
             Transactions
           </router-link>
         </li>
+        <li>
+          <router-link to="/settings" @click="isMobileMenuOpen = false"> Settings </router-link>
+        </li>
       </ul>
     </div>
   </nav>
