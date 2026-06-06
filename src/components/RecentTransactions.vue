@@ -1,6 +1,7 @@
 <script setup>
 import { computed } from 'vue'
 import { useTransactions } from '@/composables/useTransactions'
+import { formatCurrency } from '@/utils/currency'
 
 const { transactions } = useTransactions()
 
@@ -57,8 +58,7 @@ const formatDate = (dateString) => {
                     : 'amount-transfer'
               "
             >
-              {{ item.type === 'income' ? '+' : '-' }}<span>&#8358;</span
-              >{{ Number(item.amount).toFixed(2) }}
+              {{ item.type === 'income' ? '+' : '-' }}{{ formatCurrency(item.amount) }}
             </span>
           </div>
         </div>
