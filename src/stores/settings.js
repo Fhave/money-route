@@ -1,4 +1,5 @@
 import { ref } from 'vue'
+import { defineStore } from 'pinia'
 import { simpleHash } from '../utils/hash'
 
 const SETTINGS_KEY = 'money_route_settings'
@@ -10,25 +11,24 @@ const defaultSettings = {
   defaultAccountId: null,
 }
 
-const settings = ref(loadSettings())
+export const useSettingsStore = defineStore('settings', () => {
+  const settings = ref(loadSettings())
 
-function loadSettings() {
-  const stored = localStorage.getItem(SETTINGS_KEY)
+  function loadSettings() {
+    const stored = localStorage.getItem(SETTINGS_KEY)
 
-  if (!stored) {
-    localStorage.setItem(SETTINGS_KEY, JSON.stringify(defaultSettings))
+    if (!stored) {
+      localStorage.setItem(SETTINGS_KEY, JSON.stringify(defaultSettings))
+      return defaultSettings
+    }
 
-    return defaultSettings
+    return JSON.parse(stored)
   }
 
-  return JSON.parse(stored)
-}
+  function saveSettings() {
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings.value))
+  }
 
-function saveSettings() {
-  localStorage.setItem(SETTINGS_KEY, JSON.stringify(settings.value))
-}
-
-export function useSettings() {
   const setPasscode = (code) => {
     if (code.length !== 6) return
 
@@ -72,4 +72,4 @@ export function useSettings() {
     setCurrency,
     currencyValues,
   }
-}
+})

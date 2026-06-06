@@ -1,6 +1,6 @@
 <script setup>
 import { computed } from 'vue'
-
+import { formatCurrency } from '@/utils/currency'
 const props = defineProps({
   type: { type: String, required: true },
   label: { type: String, required: true },
@@ -8,6 +8,8 @@ const props = defineProps({
 })
 
 const typeColor = computed(() => (props.type === 'income' ? 'green' : 'red'))
+
+const formattedAmount = computed(() => formatCurrency(props.amount))
 </script>
 
 <template>
@@ -18,7 +20,7 @@ const typeColor = computed(() => (props.type === 'income' ? 'green' : 'red'))
       </span>
       <span class="card-label-split">{{ label }}</span>
     </div>
-    <h3 class="split-amount"><span>&#8358;</span>{{ amount.toLocaleString('en-US') }}</h3>
+    <h3 class="split-amount">{{ formattedAmount }}</h3>
     <span class="sub-period">This Month</span>
   </div>
 </template>

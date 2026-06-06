@@ -1,22 +1,20 @@
 <script setup>
 import { computed } from 'vue'
+import { formatCurrency } from '@/utils/currency'
 
 const props = defineProps({
   balance: { type: Number, required: true },
 })
 
-const formattedBalance = computed(() => {
-  return props.balance.toLocaleString('en-US', {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
-  })
+const dynamicFormattedBalance = computed(() => {
+  return formatCurrency(props.balance)
 })
 </script>
 
 <template>
   <div class="card card-hero">
     <span class="card-label">CURRENT BALANCE</span>
-    <h2 class="balance-amount"><span>&#8358;</span>{{ formattedBalance }}</h2>
+    <h2 class="balance-amount">{{ dynamicFormattedBalance }}</h2>
     <div class="deco-circle"></div>
   </div>
 </template>

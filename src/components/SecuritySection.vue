@@ -1,14 +1,21 @@
 <script setup>
-import { ref } from 'vue'
-import { useSettings } from '@/composables/useSettings'
+import { ref, computed } from 'vue'
+import { useSettingsStore } from '@/stores/settings'
 
-const { settings, saveSettings, setPasscode, disablePasscode } = useSettings()
+const store = useSettingsStore()
 
 const isConfiguring = ref(false)
-
 const input = ref('')
 const confirm = ref('')
 const error = ref('')
+
+const autoLockValue = computed({
+  get: () => store.settings.autoLockTime || 1,
+  set: (newVal) => {
+    store.settings.autoLockTime = newVal
+    store.saveSettings()
+  }
+})
 
 function startConfiguration() {
   error.value = ''
@@ -39,7 +46,7 @@ function handleEnablePasscode() {
     return
   }
 
-  setPasscode(input.value)
+  store.setPasscode(input.value)
 
   input.value = ''
   confirm.value = ''
@@ -48,7 +55,7 @@ function handleEnablePasscode() {
 }
 
 function handleDisablePasscode() {
-  disablePasscode()
+  store.disablePasscode()
   isConfiguring.value = false
 }
 </script>
@@ -60,12 +67,12 @@ function handleDisablePasscode() {
     <div class="security-card">
       <h4>Passcode Protection</h4>
 
-      <div v-if="!settings.passcodeEnabled && !isConfiguring">
+      <div v-if="!store.settings.passcodeEnabled && !isConfiguring">
         <p>Protect access to your financial data with a passcode.</p>
         <button class="primary-btn" @click="startConfiguration">Configure Passcode</button>
       </div>
 
-      <div v-else-if="!settings.passcodeEnabled && isConfiguring">
+      <div v-else-if="!store.settings.passcodeEnabled && isConfiguring">
         <p class="form-instruction">Create a secure 6-digit access code.</p>
 
         <div class="input-group">
@@ -105,7 +112,7 @@ function handleDisablePasscode() {
             <p>Lock app after inactivity</p>
           </div>
 
-          <select v-model="settings.autoLockTime" @change="saveSettings">
+          <select v-model="autoLockValue">
             <option :value="1">1 min</option>
             <option :value="3">3 min</option>
             <option :value="5">5 min</option>
@@ -232,6 +239,7 @@ p.error-msg {
 .status-success {
   color: #15803d !important;
   font-weight: 600;
+  margin-bottom: 1rem !important;
 }
 
 select {
