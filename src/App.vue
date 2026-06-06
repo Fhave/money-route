@@ -3,10 +3,18 @@ import { computed } from 'vue'
 import { RouterView, useRoute } from 'vue-router'
 import NavBar from './components/NavBar.vue'
 import ErrorBoundary from './components/ErrorBoundary.vue'
+import { useAutoLock } from '@/composables/useAutoLock'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const route = useRoute()
 
 const isSplashActive = computed(() => route.path === '/')
+
+useAutoLock(() => {
+  router.push('/')
+})
 </script>
 
 <template>
