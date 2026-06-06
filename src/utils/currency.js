@@ -1,10 +1,23 @@
-import { useSettings } from '../composables/useSettings'
-
-const { settings } = useSettings()
+import { useSettingsStore } from '@/stores/settings'
 
 export function formatCurrency(amount) {
-  return new Intl.NumberFormat('en-NG', {
+  const store = useSettingsStore()
+
+  const activeCurrency = store.settings?.currency || 'NGN'
+
+  const localeMap = {
+    NGN: 'en-NG',
+    USD: 'en-US',
+    EUR: 'de-DE',
+    GBP: 'en-GB'
+  }
+
+  const activeLocale = localeMap[activeCurrency] || 'en-NG'
+
+  return new Intl.NumberFormat(activeLocale, {
     style: 'currency',
-    currency: settings.value.currency || 'NGN',
+    currency: activeCurrency,
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
   }).format(amount)
 }
