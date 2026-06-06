@@ -2,6 +2,7 @@
 import { reactive, ref, computed, onMounted } from 'vue'
 import { useTransactions } from '@/composables/useTransactions'
 import { useAccounts } from '@/composables/useAccounts'
+import { formatCurrency } from '@/utils/currency'
 
 const props = defineProps({
   editData: {
@@ -92,7 +93,7 @@ const handleSubmit = () => {
     const totalAvailable = currentBalance + transitionalOverhead
 
     if (inputAmount > totalAvailable) {
-      errorMessage.value = `Insufficient funds! Available balance is ₦${totalAvailable.toLocaleString()}`
+      errorMessage.value = `Insufficient funds! Available balance is ${formatCurrency(totalAvailable)}`
       return
     }
   }
@@ -103,7 +104,7 @@ const handleSubmit = () => {
     const totalAvailable = sourceBalance + transitionalOverhead
 
     if (inputAmount > totalAvailable) {
-      errorMessage.value = `Insufficient funds in source account! Available balance is ₦${totalAvailable.toLocaleString()}`
+      errorMessage.value = `Insufficient funds in source account! Available balance is ${formatCurrency(totalAvailable)}`
       return
     }
   }

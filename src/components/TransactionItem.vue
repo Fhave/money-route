@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useTransactions } from '@/composables/useTransactions'
+import { formatCurrency } from '@/utils/currency'
 
 const props = defineProps({
   transaction: {
@@ -50,8 +51,8 @@ const handleEdit = () => {
               : 'amount-transfer'
         "
       >
-        {{ transaction.type === 'income' ? '+' : transaction.type === 'expense' ? '-' : ''
-        }}<span>&#8358;</span>{{ Number(transaction.amount).toFixed(2) }}
+        {{ transaction.type === 'income' ? '+ ' : transaction.type === 'expense' ? '- ' : '' }}
+        {{ formatCurrency(transaction.amount) }}
       </span>
     </div>
 

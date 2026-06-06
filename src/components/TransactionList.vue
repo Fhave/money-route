@@ -1,6 +1,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { useTransactions } from '@/composables/useTransactions'
+import { formatCurrency } from '@/utils/currency'
 import CategoryFilter from './CategoryFilter.vue'
 import DateRangeFilter from './DateRangeFilter.vue'
 import TransactionItem from './TransactionItem.vue'
@@ -114,7 +115,7 @@ const closeForm = () => {
 
         <h2 :class="['amount', activeTab === 'expense' ? 'text-expense' : 'text-income']">
           <i :class="['pi', activeTab === 'expense' ? 'pi-arrow-down' : 'pi-arrow-up']"></i>
-          <span>&#8358;</span>{{ currentDisplayAmount.toFixed(2) }}
+          {{ formatCurrency(currentDisplayAmount) }}
         </h2>
       </div>
 
