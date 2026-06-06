@@ -1,11 +1,11 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { useSettings } from '@/composables/useSettings'
+import { useSettingsStore } from '@/stores/settings'
 
-const { settings, verifyPasscode } = useSettings()
+const store = useSettingsStore()
 
-const isLocked = computed(() => settings.value.passcodeEnabled)
+const isLocked = computed(() => store.settings.passcodeEnabled)
 
 const code = ref(['', '', '', '', '', ''])
 const error = ref('')
@@ -37,7 +37,9 @@ const verifyCode = () => {
   if (entered.length !== 6) {
     return
   }
-  const valid = verifyPasscode(entered)
+
+  const valid = store.verifyPasscode(entered)
+
   if (!valid) {
     error.value = 'Incorrect passcode'
     code.value = ['', '', '', '', '', '']
