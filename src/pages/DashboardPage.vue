@@ -7,6 +7,7 @@ import SummaryCard from '../components/SummaryCard.vue'
 import ExpenseChart from '../components/ExpenseChart.vue'
 import TransactionForm from '../components/TransactionForm.vue'
 import RecentTransactions from '../components/RecentTransactions.vue'
+import ChatBot from '../components/ChatBot.vue'
 
 const { transactions, loadTransactions, seedBulkData } = useTransactions()
 const { totalNetWealth, loadAccounts } = useAccounts()
@@ -56,9 +57,9 @@ const currentBalance = computed(() => totalNetWealth.value)
         <p>Welcome back, here's what's happening with your wealth this month.</p>
       </div>
       <div class="header-actions">
-        <!-- <button class="btn-seed" @click="handleBulkSeed">
+        <button class="btn-seed" @click="handleBulkSeed">
           <i class="pi pi-database"></i> Seed Data
-        </button> -->
+        </button>
 
         <button class="btn-add-header" @click="isFormOpen = true">
           <i class="pi pi-plus"></i> Add Transaction
@@ -82,6 +83,8 @@ const currentBalance = computed(() => totalNetWealth.value)
     <div class="bottom-spacer"></div>
     <nav class="bottom-nav"></nav>
     <TransactionForm v-if="isFormOpen" @close="isFormOpen = false" />
+
+    <ChatBot />
   </div>
 </template>
 

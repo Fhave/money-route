@@ -4,6 +4,7 @@ import { useAccounts } from '@/composables/useAccounts'
 import NetWealthCard from '../components/NetWealthCard.vue'
 import AccountFormCard from '../components/AccountFormCard.vue'
 import AccountTile from '../components/AccountTile.vue'
+import ChatBot from '../components/ChatBot.vue'
 
 const {
   accountsWithBalances,
@@ -111,6 +112,8 @@ const handleConfirmDelete = () => {
         </div>
       </Transition>
     </Teleport>
+
+    <ChatBot />
   </div>
 </template>
 
