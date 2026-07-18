@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue'
 import { useTransactions } from '@/composables/useTransactions'
 import TransactionList from '../components/TransactionList.vue'
 import TransactionForm from '../components/TransactionForm.vue'
+import ChatBot from '../components/ChatBot.vue'
 
 const { loadTransactions } = useTransactions()
 const isFormOpen = ref(false)
@@ -29,6 +30,7 @@ onMounted(() => {
     </main>
 
     <TransactionForm v-if="isFormOpen" @close="isFormOpen = false" />
+    <ChatBot />
   </div>
 </template>
 
